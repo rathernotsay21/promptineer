@@ -87,8 +87,8 @@ header h1 {
     padding: 6px 12px;
     border: 1px solid var(--border-color);
     border-radius: 0;
-    background-color: var(--terminal-bg);
-    color: var(--terminal-color);
+    background-color: var(--terminal-color);
+    color: var(--terminal-bg);
     cursor: pointer;
     transition: all 0.2s;
     font-family: var(--terminal-font);
@@ -96,24 +96,43 @@ header h1 {
     position: relative;
 }
 
+#save-template-btn {
+    height: 36px;
+    margin-left: auto;
+}
+
 .btn::before {
     content: "$> ";
     opacity: 0.7;
 }
 
+#new-template-btn::before,
+#add-text-field-btn::before,
+#add-list-field-btn::before,
+#add-xml-field-btn::before,
+#add-filepath-field-btn::before {
+    content: "+ ";
+    opacity: 0.9;
+}
+
 .btn:hover {
-    background-color: var(--dark-color);
+    background-color: var(--accent-color);
+    color: var(--terminal-bg);
     box-shadow: var(--shadow);
 }
 
 .btn.primary {
-    background-color: var(--terminal-bg);
-    color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--terminal-bg);
     border-color: var(--accent-color);
+    display: block;
+    margin: 0 auto;
+    width: 80%;
 }
 
 .btn.primary:hover {
-    background-color: var(--dark-color);
+    background-color: var(--light-color);
+    color: var(--terminal-bg);
     box-shadow: 0 0 10px var(--accent-color);
 }
 
@@ -178,6 +197,7 @@ header h1 {
     margin-bottom: 20px;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
+    gap: 10px;
 }
 
 .template-title {
@@ -186,9 +206,10 @@ header h1 {
     background-color: var(--terminal-bg);
     border: 1px solid var(--border-color);
     border-radius: 0;
-    width: 60%;
+    width: 70%;
     color: var(--terminal-color);
     font-family: var(--terminal-font);
+    height: 36px;
 }
 
 .template-title:focus {
@@ -204,6 +225,7 @@ header h1 {
     display: flex;
     gap: 10px;
     margin-top: 20px;
+    justify-content: center;
 }
 
 /* Field styles */
@@ -369,6 +391,8 @@ header h1 {
     position: relative;
     flex: 1;
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .preview-content {
@@ -376,13 +400,13 @@ header h1 {
     background-color: var(--terminal-bg);
     border: none;
     border-radius: 0;
-    height: 100%;
+    height: calc(100% - 10px);
     white-space: pre-wrap;
     font-family: var(--terminal-font);
     color: var(--terminal-color);
     overflow-y: auto;
     position: relative;
-    max-height: 60vh;
+    max-height: 72vh;
 }
 
 .inline-copy-btn {
