@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favicon Generator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+    }
+    p {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <svg id="favicon" xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
+      <!-- Background -->
+      <rect width="32" height="32" fill="#000000" rx="3" ry="3"/>
+      
+      <!-- Terminal Border -->
+      <rect x="2" y="2" width="28" height="28" fill="none" stroke="#FFA500" stroke-width="1" rx="2" ry="2"/>
+      
+      <!-- Window Title Bar -->
+      <rect x="2" y="2" width="28" height="5" fill="#FFA500" rx="2" ry="2"/>
+      
+      <!-- Command Prompt Symbol -->
+      <text x="5" y="20" font-family="monospace" font-size="14" fill="#FFA500" font-weight="bold">$></text>
+      
+      <!-- Cursor -->
+      <rect x="20" y="17" width="4" height="2" fill="#FFA500">
+        <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite" />
+      </rect>
+    </svg>
+    
+    <p>Right-click on the image and select "Save Image As..." to download it as PNG.</p>
+    <p>For best results, save in sizes: 16x16, 32x32, 48x48, and 64x64</p>
+  </div>
+
+  <script>
+    // This would normally convert SVG to PNG for download
+    // In a real implementation, you'd use canvas to render the SVG and download it
+    // But this is just a placeholder for demonstration
+  </script>
+</body>
+</html>

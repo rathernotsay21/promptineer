@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROMPT-CLI v1.0.0</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="img/favicon.ico"> <!-- Fallback for browsers that don't support SVG -->
+    <link rel="apple-touch-icon" href="img/favicon-180.png"> <!-- For iOS devices -->
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PROMPT-CLI v1.0.0</h1>
+        </header>
+        
+        <main>
+            <div class="app-container">
+                <div class="sidebar">
+                    <h2>Templates</h2>
+                    <button id="new-template-btn" class="btn primary">New Template</button>
+                    <div id="template-list" class="list-container">
+                        <!-- Template list will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <div id="template-editor" class="editor-container">
+                        <div class="editor-header">
+                            <input type="text" id="template-name" placeholder="Template Name" class="template-title">
+                            <button id="save-template-btn" class="btn">Save Template</button>
+                        </div>
+                        
+                        <div id="fields-container" class="fields-container">
+                            <!-- Fields will be added here -->
+                        </div>
+                        
+                        <div class="field-controls">
+                            <button id="add-text-field-btn" class="btn">Add Text Field</button>
+                            <button id="add-list-field-btn" class="btn">Add List Field</button>
+                            <button id="add-xml-field-btn" class="btn">Add XML Field</button>
+                        </div>
+                    </div>
+                    
+                    <div id="preview-container" class="preview-container">
+                        <h2>Preview</h2>
+                        <div class="preview-content-wrapper">
+                            <div id="preview-content" class="preview-content"></div>
+                            <button id="inline-copy-btn" class="inline-copy-btn" tabindex="-1"></button>
+                        </div>
+                        <button id="copy-btn" class="btn primary">Copy to Clipboard</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>/* PROMPT-CLI 1.0.0 (c) 2025 - [process 1231] READY */</p>
+        </footer>
+    </div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
