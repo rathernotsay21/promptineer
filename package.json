@@ -1,0 +1,64 @@
+{
+  "name": "promptineer",
+  "version": "1.0.0",
+  "description": "Prompt template manager desktop application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "icon": "node create-icon.js",
+    "prebuild:win": "npm run icon",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win --ia32 --x64",
+    "build:mac": "electron-builder --mac"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.3.1",
+    "electron": "^29.4.6",
+    "electron-builder": "^24.13.3",
+    "nw": "^0.96.0",
+    "nw-builder": "^4.13.10",
+    "png-to-ico": "^2.1.8",
+    "svg2png": "^4.1.1"
+  },
+  "build": {
+    "appId": "com.yourname.promptineer",
+    "productName": "Promptineer",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/",
+      "!node_modules/"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "app-icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "favicon.svg",
+      "category": "public.app-category.productivity"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rathernotsay21/promptineer.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/rathernotsay21/promptineer/issues"
+  },
+  "homepage": "https://github.com/rathernotsay21/promptineer#readme"
+}

@@ -41,7 +41,8 @@ class TemplateStorage {
 const FieldTypes = {
     TEXT: 'text',
     LIST: 'list',
-    XML: 'xml'
+    XML: 'xml',
+    FILEPATH: 'filepath'
 };
 
 // Application logic
@@ -71,7 +72,7 @@ class PromptTemplateApp {
         this.addTextFieldBtn = document.getElementById('add-text-field-btn');
         this.addListFieldBtn = document.getElementById('add-list-field-btn');
         this.addXmlFieldBtn = document.getElementById('add-xml-field-btn');
-        this.copyBtn = document.getElementById('copy-btn');
+        this.addFilepathFieldBtn = document.getElementById('add-filepath-field-btn');
         this.inlineCopyBtn = document.getElementById('inline-copy-btn');
     }
 
@@ -81,7 +82,7 @@ class PromptTemplateApp {
         this.addTextFieldBtn.addEventListener('click', () => this.addField(FieldTypes.TEXT));
         this.addListFieldBtn.addEventListener('click', () => this.addField(FieldTypes.LIST));
         this.addXmlFieldBtn.addEventListener('click', () => this.addField(FieldTypes.XML));
-        this.copyBtn.addEventListener('click', () => this.copyToClipboard());
+        this.addFilepathFieldBtn.addEventListener('click', () => this.addField(FieldTypes.FILEPATH));
         this.inlineCopyBtn.addEventListener('click', () => this.copyToClipboard());
         
         // Live preview - use event delegation for dynamic elements
@@ -162,15 +163,19 @@ class PromptTemplateApp {
         fieldElements.forEach(fieldElement => {
             const fieldId = fieldElement.dataset.id;
             const fieldType = fieldElement.dataset.type;
-            const fieldLabelInput = fieldElement.querySelector('.field-label-input');
             const fieldContentInput = fieldElement.querySelector('.field-content-input');
             
             let fieldData = {
                 id: fieldId,
                 type: fieldType,
-                label: fieldLabelInput.value,
                 content: fieldContentInput.value
             };
+            
+            // Get label for non-Filepath fields
+            if (fieldType !== FieldTypes.FILEPATH) {
+                const fieldLabelInput = fieldElement.querySelector('.field-label-input');
+                fieldData.label = fieldLabelInput.value;
+            }
             
             // Additional data for XML fields
             if (fieldType === FieldTypes.XML) {
@@ -218,22 +223,30 @@ class PromptTemplateApp {
             </div>
         `;
         
-        let contentHTML = `
-            <div class="field-content-wrapper">
-                <div class="field-label-section">
-                    <input type="text" class="field-input field-label-input" placeholder="Field Label" value="${field.label || ''}" tabindex="0">
-                </div>
-            </div>
-        `;
+        let contentHTML;
         
-        // Additional options for XML fields
-        if (field.type === FieldTypes.XML) {
-            contentHTML = contentHTML.replace('</div>\n            </div>', `
+        if (field.type === FieldTypes.FILEPATH) {
+            // Filepath fields don't have a label input
+            contentHTML = ``;
+        } else {
+            // Regular fields with label input
+            contentHTML = `
+                <div class="field-content-wrapper">
+                    <div class="field-label-section">
+                        <input type="text" class="field-input field-label-input" placeholder="Field Label" value="${field.label || ''}" tabindex="0">
+                    </div>
                 </div>
-                <div class="field-xml-section">
-                    <input type="text" class="field-input xml-tag-input" placeholder="XML Tag" value="${field.xmlTag || 'tag'}" tabindex="0">
-                </div>
-            </div>`);
+            `;
+            
+            // Additional options for XML fields
+            if (field.type === FieldTypes.XML) {
+                contentHTML = contentHTML.replace('</div>\n                </div>', `
+                    </div>
+                    <div class="field-xml-section">
+                        <input type="text" class="field-input xml-tag-input" placeholder="XML Tag" value="${field.xmlTag || 'tag'}" tabindex="0">
+                    </div>
+                </div>`);
+            }
         }
         
         contentHTML += `
@@ -278,6 +291,7 @@ class PromptTemplateApp {
             case FieldTypes.TEXT: return 'Text';
             case FieldTypes.LIST: return 'List';
             case FieldTypes.XML: return 'XML';
+            case FieldTypes.FILEPATH: return 'Filepath';
             default: return 'Unknown';
         }
     }
@@ -287,6 +301,7 @@ class PromptTemplateApp {
             case FieldTypes.TEXT: return 'Content';
             case FieldTypes.LIST: return 'List Items (one per line)';
             case FieldTypes.XML: return 'Content (will be wrapped in XML tags)';
+            case FieldTypes.FILEPATH: return 'Directory or file location';
             default: return 'Content';
         }
     }
@@ -317,7 +332,7 @@ class PromptTemplateApp {
         fields.forEach(field => {
             if (!field.content.trim()) return;
             
-            if (field.label) {
+            if (field.label && field.type !== FieldTypes.FILEPATH) {
                 previewText += `${field.label}\n\n`;
             }
             
@@ -338,6 +353,10 @@ class PromptTemplateApp {
                     const tag = field.xmlTag || 'tag';
                     previewText += `<${tag}>\n${field.content}\n</${tag}>\n\n`;
                     break;
+                
+                case FieldTypes.FILEPATH:
+                    previewText += `Filepath: ${field.content}\n\n`;
+                    break;
             }
         });
         
@@ -354,14 +373,12 @@ class PromptTemplateApp {
         
         navigator.clipboard.writeText(textToCopy)
             .then(() => {
-                // Visual feedback for both buttons
-                this.copyBtn.textContent = 'Copied!';
+                // Visual feedback for inline button
                 this.inlineCopyBtn.style.opacity = '1';
                 this.inlineCopyBtn.textContent = '✓';
                 
                 // Reset after delay
                 setTimeout(() => {
-                    this.copyBtn.textContent = 'Copy to Clipboard';
                     this.inlineCopyBtn.textContent = '';
                     this.inlineCopyBtn.style.opacity = '0.4';
                 }, 2000);
