@@ -62,18 +62,11 @@ header h1 {
 }
 
 .sidebar h2 {
-    margin-bottom: 15px;
-    color: var(--terminal-color);
-    font-weight: normal;
-    letter-spacing: 1px;
-    position: relative;
-    text-transform: uppercase;
+    margin-bottom: 5px;
+    height: 10px;
 }
 
-.sidebar h2::before {
-    content: "$> ";
-    opacity: 0.7;
-}
+/* Removed sidebar h2 prefix */
 
 .content {
     flex: 1;
@@ -372,20 +365,11 @@ header h1 {
 }
 
 .preview-container h2 {
-    margin-bottom: 15px;
-    color: var(--terminal-color);
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 10px;
-    position: relative;
+    margin-bottom: 5px;
+    height: 10px;
 }
 
-.preview-container h2::before {
-    content: "$> ";
-    opacity: 0.7;
-}
+/* Removed preview container h2 prefix */
 
 .preview-content-wrapper {
     position: relative;
@@ -406,7 +390,8 @@ header h1 {
     color: var(--terminal-color);
     overflow-y: auto;
     position: relative;
-    max-height: 72vh;
+    max-height: 100%;
+    flex-grow: 1;
 }
 
 .inline-copy-btn {
